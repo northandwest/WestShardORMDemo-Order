@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+       default-autowire="byName" default-lazy-init="false">
+    
+    <bean id="baseDataSource" class="org.apache.tomcat.jdbc.pool.DataSource"  destroy-method="close">
+     		<property name="driverClassName" value="${jdbc.driver}" />
+			
+			<property name="validationQuery" value="SELECT 1"></property> 
+		    <property name="testOnReturn" value="false"></property>  
+		    <property name="testWhileIdle" value="false"></property>  
+		  	
+			<property name="testOnBorrow" value="true" />
+			<property name="maxActive" value="${jdbc.pool.maxActive}" />
+			<property name="maxIdle" value="${jdbc.pool.maxIdle}" />
+			<property name="minIdle" value="0" />
+			<property name="defaultAutoCommit" value="false" />
+    </bean>
+
+    <bean id="dataSourceMaster0" parent="baseDataSource">
+        <property name="name" value="dataSourceMaster0"/>
+        <property name="url" value="${jdbc.url_0}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+
+    <bean id="dataSourceMaster1" parent="baseDataSource">
+        <property name="name" value="dataSourceMaster1"/>
+        <property name="url" value="${jdbc.url_1}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+
+    <bean id="myDynamicDataSource"
+          class="com.bucuoa.west.orm.shard.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="master0" value-ref="dataSourceMaster0" />
+                <entry key="master1" value-ref="dataSourceMaster1" />
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="dataSourceMaster0" />
+        <property name="redSeed" value="2" />
+        <property name="writeSeed" value="1" />
+    </bean>
+
+    <!-- 读写分离end -->
+
+
+
+</beans>
