@@ -6,4 +6,4 @@
 #步骤
 sql在项目sql目录里
 本项目是maven项目，在eclipse项目里导入exits maven project即可。
-maven jetty:run 既可以运行。
+maven jetty:run 既可以运行。 
