@@ -5,7 +5,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bucuoa</groupId>
-	<artifactId>west-order</artifactId>
+	<artifactId>west-demo-order</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0-SNAPSHOT</version>
 
@@ -23,7 +23,7 @@
 		<commons-lang.version>2.6</commons-lang.version>
 		<tomcat-jdbc.version>7.0.57</tomcat-jdbc.version>
 		
-		<west.version>0.2.4-SNAPSHOT</west.version>
+		<west.version>0.2.20-SNAPSHOT</west.version>
 	</properties>
 
 	<dependencies>
@@ -181,7 +181,7 @@
 
 		<dependency>
 			<groupId>com.bucuoa.west</groupId>
-			<artifactId>west-core</artifactId>
+			<artifactId>WestShardORM</artifactId>
 			<version>${west.version}</version>
 		</dependency>
 		<dependency>
